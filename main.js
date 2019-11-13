@@ -5,7 +5,7 @@ Vue.component('product', {
             required: true
         }
     },
-    template: `    <div class="product">
+    template: `<div class="product">
     <div class="product-image">
             <img v-bind:src="image">
     </div>
@@ -14,11 +14,7 @@ Vue.component('product', {
         <button v-on:click="addToCart"
                 :disabled="inventory==0"
                 :class="{ disabledButton: inventory==0}">Add to cart</button>
-        <button v-if="cart > 0" @click="removeFromCart">Remove from cart</button>
-
-        <div class="cart">
-            <p>Cart({{ cart }})</p>
-        </div>
+        <button @click="removeFromCart">Remove from cart</button>
 
         <h1>{{ title }}</h1>
 
@@ -57,7 +53,6 @@ Vue.component('product', {
             ],
             selectedVariant: 0,
             link: 'https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks',
-            cart: 0,
             onSale: true,
             variants: [
                 {
@@ -97,10 +92,10 @@ Vue.component('product', {
     },
     methods: {
         addToCart(){
-            this.cart += 1
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
         removeFromCart(){
-            this.cart -= 1
+            this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId)
         },
         updateProduct(index) {
             this.selectedVariant = index
@@ -135,7 +130,20 @@ Vue.component('product', {
 var cake = new Vue({
     el: '#app',
     data: {
-        premium: false
+        premium: false,
+        cart: [],
+    },
+    methods: {
+        addToCart(id) {
+            this.cart.push(id)
+        },
+        removeFromCart(id) {
+            for (var i = this.cart.length; i >= 0; i--) {
+                if (this.cart[i] === id) {
+                    this.cart.splice(i,1);
+                }                
+            }
+        }
     }
     
 })
