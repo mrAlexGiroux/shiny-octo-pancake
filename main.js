@@ -1,32 +1,27 @@
-var app = new Vue({
+var cake = new Vue({
     el: '#app',
     data: {
-        product: 'Cake'
-    }
-})
-
-var cake = new Vue({
-    el: '#cake',
-    data: {
+        brand: 'Vue Mastery',
         product: 'Socks',
         details: [
             "80% cotton", "20% polyester","Gender-neutral"
         ],
-        image: 'media/vmSocks-green-onWhite.jpg',
+        selectedVariant: 0,
         link: 'https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks',
-        inventory : 8,
         cart: 0,
-        sale: false,
+        onSale: true,
         variants: [
             {
                 variantId: 2234,
                 variantColor: "green",
-                variantImage : "media/vmSocks-green-onWhite.jpg"
+                variantImage : "media/vmSocks-green-onWhite.jpg",
+                variantQuantity : 10
             },
             {
                 variantId: 2235,
                 variantColor: "blue",
-                variantImage : "media/vmSocks-blue-onWhite.jpg"
+                variantImage : "media/vmSocks-blue-onWhite.jpg",
+                variantQuantity : 10,
             }
         ],
         sizes: [
@@ -57,8 +52,25 @@ var cake = new Vue({
         removeFromCart(){
             this.cart -= 1
         },
-        updateProduct(variantImage) {
-            this.image = variantImage
+        updateProduct(index) {
+            this.selectedVariant = index
         }
+    },
+    computed: {
+        title(){
+            return this.brand + ' ' + this.product
+        },
+        image() {
+            return this.variants[this.selectedVariant].variantImage
+        },
+        inventory() {
+            return this.variants[this.selectedVariant].variantQuantity
+        },
+        sale() {
+            if (this.onSale) {
+                return this.brand + ' ' + this.product + ' are not on sale!'
+            }
+                return this.brand + ' ' + this.product + ' are not on sale!'
+            }
     }
 })
