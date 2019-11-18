@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "path": "C:\\Users\\Alexandre Giroux\\Documents\\GitHubRepository\\shiny-octo-pancake"
+    }
+  ],
+  "settings": {
+    "files.autoSave": "afterDelay"
+  },
+  "eslint.validate": [
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    },
+    {
+      "language": "javascript",
+      "autoFix": true
+    }
+  ],
+  "eslint.autoFixOnSave": true
+}
