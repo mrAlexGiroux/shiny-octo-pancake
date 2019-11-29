@@ -2,19 +2,29 @@
   <div class="content">
     <button class="add-to-cart" @click="addToCart()">Add to cart</button>
     <div class="top-row">
-        <!-- <div class="robot-name">
+      <!-- <div class="robot-name">
           {{selectedRobot.head.title}}
           <span v-if="selectedRobot.head.onSale" class="sale">Sale!</span>
-        </div> -->
-        <PartSelector/>
-      </div>
+      </div>-->
+      <PartSelector
+        :parts="availableParts.heads"
+        position="top"/>
+    </div>
     <div class="middle-row">
-      <PartSelector/>
-      <PartSelector/>
-      <PartSelector/>
+      <PartSelector
+        :parts="availableParts.arms"
+        position="left"/>
+      <PartSelector
+        :parts="availableParts.torsos"
+        position="center"/>
+      <PartSelector
+        :parts="availableParts.arms"
+        position="right"/>
     </div>
     <div class="bottom-row">
-      <PartSelector/>
+      <PartSelector
+        :parts="availableParts.bases"
+        position="bottom"/>
     </div>
     <div>
       <h1>Cart</h1>
@@ -24,14 +34,13 @@
             <th>Robot</th>
             <th class="cost">Cost</th>
           </tr>
-          <tbody>
-            <tr v-for="(robot,index) in cart" :key="index">
-              <td>{{ robot.head.title}}</td>
-              <td class="cost">{{ robot.cost}}</td>
-            </tr>
-          </tbody>
-
         </thead>
+        <tbody>
+          <tr v-for="(robot,index) in cart" :key="index">
+            <td>{{ robot.head.title}}</td>
+            <td class="cost">{{ robot.cost}}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -44,17 +53,17 @@ import PartSelector from './PartSelector.vue';
 
 export default {
   name: 'RobotBuilder',
-  components: {PartSelector},
+  components: { PartSelector },
   data() {
     return {
       availableParts,
       cart: [],
       selectedRobot: {
-          head: {},
-          leftArm: {},
-          rightArm: {},
-          torso: {},
-          base: {},
+        head: {},
+        leftArm: {},
+        rightArm: {},
+        torso: {},
+        base: {},
       },
     };
   },
@@ -93,9 +102,9 @@ export default {
   border: 3px solid #aaa;
 }
 .part {
-    img {
+  img {
     width: 165px;
-    }
+  }
 }
 .top-row {
   display: flex;
@@ -184,7 +193,7 @@ export default {
   width: 100%;
 }
 .sale {
-  color:red;
+  color: red;
 }
 .content {
   position: relative;
@@ -196,7 +205,8 @@ export default {
   padding: 3px;
   font-size: 16px;
 }
-td, th {
+td,
+th {
   text-align: left;
   padding: 5px;
   padding-right: 20px;
